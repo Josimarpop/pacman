@@ -1,11 +1,11 @@
-// Eixos
+ï»¿// Eixos
 #define X 0
 #define Y 1
 
 // Velocidade do jogo em frames por segundo
 #define PAC_FPS 24
 
-// Máximo de frames pulados
+// MÃ¡ximo de frames pulados
 #define PAC_PULOS_MAX 4
 
 // Tempo (em ms) para verificar se um estado do jogo mudou
@@ -33,7 +33,7 @@
 #define PAC_BOLINHA_NORMAL 1
 #define PAC_BOLINHA_ESPECIAL 2
 
-// Direções de movimento
+// DireÃ§Ãµes de movimento
 #define PAC_DIRECAO_CIMA 0
 #define PAC_DIRECAO_ESQUERDA 1
 #define PAC_DIRECAO_BAIXO 2
@@ -68,10 +68,10 @@
 #define PAC_VELOCIDADE_PACMAN_D 0.2 // 1/5 tiles por frame
 #define PAC_VELOCIDADE_FANTASMA_D 0.25 // 1/4 tiles por frame
 
-// Número inicial de vidas
+// NÃºmero inicial de vidas
 #define PAC_VIDAS 3
 
-// Ângulo de abertura máxima da boca do pac-man
+// Ã‚ngulo de abertura mÃ¡xima da boca do pac-man
 #define PAC_BOCA_MAX 45
 
 #ifndef min
@@ -80,45 +80,45 @@
 
 typedef struct tile {
 	int tipo; // Tipo
-	int bolinha; // Bolinha que está dentro
-	int pos[2]; // Posição
+	int bolinha; // Bolinha que estÃ¡ dentro
+	int pos[2]; // PosiÃ§Ã£o
 	struct tile *tele; // Para onde teletransporta
 } Tile;
 
 typedef struct mapa {
 	struct tile **tiles; // Matriz de tiles
 	int bolinhas; // Bolinhas restantes
-	unsigned int lista; // Lista de exibição
+	unsigned int lista; // Lista de exibiÃ§Ã£o
 } Mapa;
 
 typedef struct pacman {
 	int vidas; // Quantidade de vidas
-	int pontos; // Pontuação
+	int pontos; // PontuaÃ§Ã£o
 	int fase; // Fase atual
-	int morto; // Está morto
+	int morto; // EstÃ¡ morto
 	int capturados; // Fantasmas capturados
-	int direcao; // Direção de movimento
-	int pre; // Direção do pré-move
+	int direcao; // DireÃ§Ã£o de movimento
+	int pre; // DireÃ§Ã£o do prÃ©-move
 	int boca; // Abertura da boca
 	double mov; // Porcentagem de movimento
 	double velocidade; // Velocidade
 	int tele; // Se foi teletransportado
-	struct tile *atual; // Posição atual
-	struct tile *destino; // Próxima posição
-	struct tile *inicio; // Posição inicial
+	struct tile *atual; // PosiÃ§Ã£o atual
+	struct tile *destino; // PrÃ³xima posiÃ§Ã£o
+	struct tile *inicio; // PosiÃ§Ã£o inicial
 } Pacman;
 
 typedef struct fantasma {
-	int nome; // Qual fantasma é
+	int nome; // Qual fantasma Ã©
 	int estado; // Estado
 	int capturado; // Se pode ser capturado
-	int direcao; // Direção de movimento
+	int direcao; // DireÃ§Ã£o de movimento
 	double mov; // Porcentagem de movimento
 	double velocidade; // Velocidade
 	int tele; // Se foi teletransportado
-	struct tile *atual; // Posição atual
-	struct tile *destino; // Próxima posição
-	struct tile *inicio; // Posição inicial
+	struct tile *atual; // PosiÃ§Ã£o atual
+	struct tile *destino; // PrÃ³xima posiÃ§Ã£o
+	struct tile *inicio; // PosiÃ§Ã£o inicial
 	struct tile *alvo; // Aonde vai
 } Fantasma;
 
@@ -146,7 +146,7 @@ int tTipos[][PAC_MAPA_LARGURA] =
 1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
 
-// Posições das Bolinhas
+// PosiÃ§Ãµes das Bolinhas
 int tBolinhas[][PAC_MAPA_LARGURA] =
 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,
@@ -170,9 +170,9 @@ int tBolinhas[][PAC_MAPA_LARGURA] =
 0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
-// Variáveis do jogo
+// VariÃ¡veis do jogo
 int especiais = 0; // Quantidade de bolinhas especiais ativadas
-int estados = 1; // Número de vezes nas quais o estado dos fantasmas mudou
+int estados = 1; // NÃºmero de vezes nas quais o estado dos fantasmas mudou
 int maiorPontuacao = 0; // Recorde atual do jogo
 
 // gui.c

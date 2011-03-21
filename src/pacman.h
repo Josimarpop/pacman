@@ -1,4 +1,4 @@
-// Listas de exibição
+ï»¿// Listas de exibiÃ§Ã£o
 unsigned int cima;
 unsigned int baixo;
 
@@ -50,11 +50,11 @@ Pacman *criaPacman() {
 void movePacman(Pacman *pac, Mapa *map, Fantasma *fant) {
 	int i;
 	
-	// Tenta mudar para a direção desejada
+	// Tenta mudar para a direÃ§Ã£o desejada
 	if (pacmanPodeMudarDirecao(pac, map))
 		pac->direcao = pac->pre;
 	
-	// Pega o próximo tile
+	// Pega o prÃ³ximo tile
 	pac->destino = proximoTile(map, pac->atual, pac->direcao, pac->tele);
 	// Verifica se pode mover-se para ele
 	if (pacmanPodeAndarSobre(pac->destino)) {
@@ -62,11 +62,11 @@ void movePacman(Pacman *pac, Mapa *map, Fantasma *fant) {
 		pac->velocidade = velocidadePacman(pac);
 		// Verifica se completou o movimento
 		if (pac->mov < 1) {
-			// Dá um passo
+			// DÃ¡ um passo
 			pac->mov += pac->velocidade;
 			pac->boca = PAC_BOCA_MAX * pac->mov;
 		} else {
-			// Atualiza a pontuação
+			// Atualiza a pontuaÃ§Ã£o
 			if (pac->destino->bolinha != PAC_BOLINHA_NENHUMA)
 				map->bolinhas--;
 			switch (pac->destino->bolinha) {
@@ -87,14 +87,14 @@ void movePacman(Pacman *pac, Mapa *map, Fantasma *fant) {
 			}
 			pac->destino->bolinha = PAC_BOLINHA_NENHUMA;
 			
-			// Atualiza a posição
+			// Atualiza a posiÃ§Ã£o
 			if (pac->destino->tele) pac->tele = !pac->tele;
 			pac->atual = pac->destino;
 			pac->boca = 0;
 			pac->mov = 0;
 		}
 	} else {
-		// Pára
+		// PÃ¡ra
 		pac->velocidade = 0;
 	}
 }
@@ -150,7 +150,7 @@ double velocidadePacman(Pacman *pac) {
 		return PAC_VELOCIDADE_PACMAN_D;
 }
 
-// Verifica se é permitido passar sobre este tile
+// Verifica se Ã© permitido passar sobre este tile
 int pacmanPodeAndarSobre(Tile *tile) {
 	return tile != 0
 		   && tile->tipo != PAC_TILE_PAREDE
@@ -161,7 +161,7 @@ int pacmanPodeAndarSobre(Tile *tile) {
 		   && tile->tipo != PAC_TILE_NADA;
 }
 
-// Verifica se é permitido mudar de direção
+// Verifica se Ã© permitido mudar de direÃ§Ã£o
 int pacmanPodeMudarDirecao(Pacman *pac, Mapa *map) {
 	Tile *destino;
 	
@@ -173,7 +173,7 @@ int pacmanPodeMudarDirecao(Pacman *pac, Mapa *map) {
 		   && !destino->tele;
 }
 
-// Verifica se o pac-man está no mesmo quadrado que um fantasma
+// Verifica se o pac-man estÃ¡ no mesmo quadrado que um fantasma
 void estaVivo(Pacman *pac, Fantasma *fant) {
 	int i;
 	
@@ -195,7 +195,7 @@ void estaVivo(Pacman *pac, Fantasma *fant) {
 	}
 }
 
-// Aumenta a pontuação
+// Aumenta a pontuaÃ§Ã£o
 void ganharPontos(Pacman *pac, int pontos, int *recorde) {
 	pac->pontos += pontos;
 	if (pac->pontos % 10000 < pontos)
@@ -204,7 +204,7 @@ void ganharPontos(Pacman *pac, int pontos, int *recorde) {
 		*recorde = pac->pontos;
 }
 
-// Desenha um hemisfério
+// Desenha um hemisfÃ©rio
 void hemisferio(double raio) {
 	double eqn[4] = {0.0, 0.0, 1.0, 0.0};
 	glPushMatrix();

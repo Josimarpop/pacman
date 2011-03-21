@@ -1,22 +1,22 @@
-#include <GL/glut.h>
+Ôªø#include <GL/glut.h>
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "global.h"
 
-// Vari·veis do Game Loop
+// Vari√°veis do Game Loop
 unsigned int tempoInicial;
 unsigned int tempoAtual;
 int passos;
 int frame = 1000 / PAC_FPS;
 double interpolacao;
 
-// Vari·veis da tela
+// Vari√°veis da tela
 int telaW = 800;
 int telaH = 500;
 
-// Vari·veis do jogo
+// Vari√°veis do jogo
 Pacman *pac;
 Fantasma *fant;
 Mapa *map;
@@ -24,7 +24,7 @@ char pontuacao[10];
 char vidas[10];
 char recorde[10];
 
-// Vari·veis de estado
+// Vari√°veis de estado
 int menu = 1;
 int opcao = 0;
 int pause = 0;
@@ -40,10 +40,10 @@ int main() {
 	glutCreateWindow("Pac-Man");
 	//glutFullScreen();
 	
-	// Inicializa as vari·veis
+	// Inicializa as vari√°veis
 	inicializar();
 	
-	// Informa as funÁıes de interaÁ„o
+	// Informa as fun√ß√µes de intera√ß√£o
 	glutDisplayFunc(desenhar);
 	glutSpecialFunc(mover);
 	glutKeyboardFunc(teclado);
@@ -53,7 +53,7 @@ int main() {
 	glutMainLoop();
 }
 
-// Inicializa as vari·veis do jogo
+// Inicializa as vari√°veis do jogo
 void inicializar() {
 	// Cria os objetos do jogo
 	pac = criaPacman();
@@ -70,7 +70,7 @@ void inicializar() {
 	glEnable(GL_DEPTH_TEST);
 	glDrawBuffer(GL_BACK);
 	
-	// Inicia o gerador de n˙meros
+	// Inicia o gerador de n√∫meros
 	srand(time(NULL));
 	
 	glutTimerFunc(PAC_TIMER, mudarEstado, 5000);
@@ -81,12 +81,12 @@ void desenhar() {
 	// Limpa a tela
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
-	// Determina o tamanho da ·rea de visualizaÁ„o
+	// Determina o tamanho da √°rea de visualiza√ß√£o
 	glMatrixMode(GL_VIEWPORT);
 	glLoadIdentity();
 	glViewport(0, 0, telaW, telaH);
 	
-	// Utiliza a projeÁ„o ortogr·fica
+	// Utiliza a proje√ß√£o ortogr√°fica
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho((double) -telaW/2, (double) telaW/2, (double) -telaH/2, (double) telaH/2, -2000, 2000);
@@ -139,11 +139,11 @@ void mostrarMenu() {
 			strcpy(itens[2], "Sobre");
 			strcpy(itens[3], "Sair");
 			
-			// Desenha os Ìtens
+			// Desenha os √≠tens
 			for (i = 0; i < 4; i++)
 				escrever(itens[i], 0, (double) telaH/2 + 25*i + 40, 0, opcao == i);
 			
-			// Desenha a pontuaÁ„o recorde
+			// Desenha a pontua√ß√£o recorde
 			itoa(maiorPontuacao, recorde, 10);
 			escrever("Recorde", 20+3*9, 20, 1, 0);
 			escrever(recorde, 20, 35, 1, 0);
@@ -177,12 +177,12 @@ void atualizarJogo() {
 	passos = 0;
 	
 	if (!pause) {
-		// Atualiza o jogo, se n„o estiver pausado
+		// Atualiza o jogo, se n√£o estiver pausado
 		while ((tempoAtual - tempoInicial) > frame
 			   && passos < PAC_PULOS_MAX) {
 			// Verifica se ainda restam bolinhas
 			if (map->bolinhas) {	
-				// Se est· comeÁando a fase, espera
+				// Se est√° come√ßando a fase, espera
 				if (inicio) {
 					pac->boca = 30;
 					glutTimerFunc(PAC_TIMER, iniciou, 2000);
@@ -190,7 +190,7 @@ void atualizarJogo() {
 				} else if (pac->morto && !morte) {
 					morte = 1;
 					glutTimerFunc(PAC_TIMER, morreu, 2000);
-				// Se est· normal, d· um passo
+				// Se est√° normal, d√° um passo
 				} else if (!pac->morto && !fim) {
 					movePacman(pac, map, fant);
 					estaVivo(pac, fant);
@@ -213,7 +213,7 @@ void atualizarJogo() {
 		if ((tempoAtual - tempoInicial) > frame)
 			tempoInicial = tempoAtual - frame;
 		
-		// Calcula a interpolaÁ„o que deve ser usada
+		// Calcula a interpola√ß√£o que deve ser usada
 		interpolacao = min(1.0, (double) (tempoAtual - tempoInicial) / frame);
 	} else {
 		interpolacao = 0;
@@ -222,7 +222,7 @@ void atualizarJogo() {
 
 // Monta a cena atual do jogo
 void mostrarJogo() {
-	// Exibe a pontuaÁ„o atual e o recorde
+	// Exibe a pontua√ß√£o atual e o recorde
 	itoa(pac->pontos, pontuacao, 10);
 	itoa(pac->vidas, vidas, 10);
 	itoa(maiorPontuacao, recorde, 10);
@@ -233,23 +233,23 @@ void mostrarJogo() {
 	escrever("Recorde", 20+3*9, 20, 1, 0);
 	escrever(recorde, 20, 35, 1, 0);
 	
-	// Informa quando est· pausado
+	// Informa quando est√° pausado
     if (pause)
 		escrever("Pausado", 0, telaH/2-50, 0, 0);
 	
-	// PosiÁ„o da c‚mera
+	// Posi√ß√£o da c√¢mera
 	glRotated(35, 1, 0, 0);
 	glRotated(-45, 0, 1, 0);
 	glRotated(-90, 1, 0, 0);
 	glScaled(PAC_TAMANHO_MAPA, PAC_TAMANHO_MAPA, PAC_TAMANHO_MAPA);
 	
-	// Se est· morto, mover apenas os fantasmas
+	// Se est√° morto, mover apenas os fantasmas
 	if (morte || fim) {
 		centralizarCamera(pac, 0);
 		mostrarMapa(map);
 		mostrarPacman(pac, 0);
 		
-		// Se passou de fase, n„o move os fantasmas
+		// Se passou de fase, n√£o move os fantasmas
 		if (fim)
 			mostrarFantasmas(fant, 0);
 		else
@@ -266,7 +266,7 @@ void mostrarJogo() {
 	glLoadIdentity();
 	glViewport(10, 10, (PAC_MAPA_LARGURA+1)*PAC_TAMANHO_MINIATURA, (PAC_MAPA_ALTURA+1)*PAC_TAMANHO_MINIATURA);
 	
-	// PosiÁ„o da c‚mera na miniatura
+	// Posi√ß√£o da c√¢mera na miniatura
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(0, PAC_MAPA_LARGURA+1, 0, PAC_MAPA_ALTURA+1, -600, 600);
@@ -275,7 +275,7 @@ void mostrarJogo() {
 	glLoadIdentity();
 	glTranslated(0, 0, 400);
 	
-	// Se est· morto, mover apenas os fantasmas
+	// Se est√° morto, mover apenas os fantasmas
 	mostrarMapa(map);
 	if (morte) {
 		mostrarPacman(pac, 0);
@@ -285,13 +285,13 @@ void mostrarJogo() {
 	mostrarFantasmas(fant, interpolacao);
 }
 
-// Atualiza a posiÁ„o da c‚mera, centralizando-a no pac-man
+// Atualiza a posi√ß√£o da c√¢mera, centralizando-a no pac-man
 void centralizarCamera(Pacman *pac, double interpolacao) {
 	double posX = pac->atual->pos[X];
 	double posY = pac->atual->pos[Y];
 	double delta = min(1.0, pac->mov + pac->velocidade * interpolacao);
 	
-	// Aplica a interpolaÁ„o
+	// Aplica a interpola√ß√£o
 	switch (pac->direcao) {
 		case PAC_DIRECAO_CIMA:
 			posY -= delta;
@@ -307,7 +307,7 @@ void centralizarCamera(Pacman *pac, double interpolacao) {
 			break;
 	}
 	
-	// Desloca a c‚mera
+	// Desloca a c√¢mera
 	glTranslated(-posX, -(PAC_MAPA_ALTURA - posY + 1), 0);
 }
 
@@ -324,7 +324,7 @@ void reiniciarJogo() {
 void reiniciar(Pacman *pac, Fantasma *fant) {
 	int i;
 	
-	// Reinicia o gerador de n˙meros
+	// Reinicia o gerador de n√∫meros
 	srand(time(NULL));
 	
 	// Reinicia os fantasmas
@@ -376,12 +376,12 @@ void mudarEstado(int tempo) {
 	}
 }
 
-// Faz o jogador esperar antes de comeÁar
+// Faz o jogador esperar antes de come√ßar
 void iniciou(int tempo) {
 	if (pause) {
 		glutTimerFunc(PAC_TIMER, iniciou, tempo);
 	} else if (tempo <= 0) {
-		// ComeÁa o jogo
+		// Come√ßa o jogo
 		inicio = 0;
 	} else {
 		glutTimerFunc(PAC_TIMER, iniciou, tempo - PAC_TIMER);
@@ -400,7 +400,7 @@ void morreu(int tempo) {
 		morte = 0;
 		inicio = 1;
 		
-		// Se n„o tem mais vidas, volta ao menu
+		// Se n√£o tem mais vidas, volta ao menu
 		if (pac->vidas <= 0)
 			menu = 1;
 	} else {
@@ -413,7 +413,7 @@ void passou(int tempo) {
 	if (pause) {
 		glutTimerFunc(PAC_TIMER, passou, tempo);
 	} else if (tempo <= 0) {
-		// Passa para a prÛxima fase
+		// Passa para a pr√≥xima fase
 		pac->fase++;
 		reiniciarMapa(map, tBolinhas);
 		reiniciar(pac, fant);
@@ -445,7 +445,7 @@ void terminarEspecial(int tempo) {
 	}
 }
 
-// Identifica a direÁ„o de movimento pelas setas do teclado
+// Identifica a dire√ß√£o de movimento pelas setas do teclado
 void mover(int tecla, int x, int y) {
 	if (menu) {
 		// Move o cursor do menu
@@ -477,7 +477,7 @@ void mover(int tecla, int x, int y) {
 	}
 }
 
-// Identifica as teclas apertadas e realiza suas aÁıes
+// Identifica as teclas apertadas e realiza suas a√ß√µes
 void teclado(unsigned char tecla, int x, int y) {
 	switch (tecla) {
 		// Enter
@@ -505,7 +505,7 @@ void teclado(unsigned char tecla, int x, int y) {
 							break;
 					}
 					break;
-				default: // Numa seÁ„o do menu
+				default: // Numa se√ß√£o do menu
 					menu = 1;
 					break;
 			}
@@ -518,7 +518,7 @@ void teclado(unsigned char tecla, int x, int y) {
 	}
 }
 
-// Captura as dimensıes da tela
+// Captura as dimens√µes da tela
 void redimensionar(int w, int h) {
 	telaW = w;
 	telaH = h;
@@ -529,7 +529,7 @@ void escrever(char *texto, int x, int y, int alinhamento, int selecionado) {
 	int i;
 	double posX;
 	
-	// Se o texto est· selecionado
+	// Se o texto est√° selecionado
 	if (selecionado)
 		glColor3f(1, 1, 0);
 	else

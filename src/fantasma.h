@@ -1,4 +1,4 @@
-// Listas de Exibição
+ï»¿// Listas de ExibiÃ§Ã£o
 unsigned int corpo;
 unsigned int olhos;
 
@@ -65,27 +65,27 @@ void moveFantasmas(Fantasma *fant, Mapa *map, Pacman *pac) {
 	for (i = 0; i < PAC_FANTASMAS; i++) {
 		// Atualiza o alvo
 		fant[i].alvo = defineAlvo(fant[i], map, pac, fant);
-		// Pega o próximo tile
+		// Pega o prÃ³ximo tile
 		fant[i].destino = proximoTile(map, fant[i].atual, fant[i].direcao, fant[i].tele);
 		// Verifica se pode mover-se para ele
-		if (fantasmaPodeAndarSobre(fant[i], fant[i].destino)) { // Se é permitido
+		if (fantasmaPodeAndarSobre(fant[i], fant[i].destino)) { // Se Ã© permitido
 			// Anda
 			fant[i].velocidade = velocidadeFantasma(fant[i], pac);
 			// Verifica se completou o movimento
 			if (fant[i].mov < 1) {
-				// Dá um passo
+				// DÃ¡ um passo
 				fant[i].mov += fant[i].velocidade;
 			} else {
-				// Permite ser capturado quando sai da prisão
+				// Permite ser capturado quando sai da prisÃ£o
 				if (fant[i].capturado == PAC_CAPTURA_PRISAO
 					&& !ePrisao(fant[i].destino))
 					fant[i].capturado = PAC_CAPTURA_NORMAL;
-				// Sai da prisão quando volta da captura
+				// Sai da prisÃ£o quando volta da captura
 				else if (fant[i].capturado == PAC_CAPTURA_CAPTURADO
 						 && fant[i].destino == fant[i].inicio)
 					fant[i].capturado = PAC_CAPTURA_PRISAO;
 				
-				// Atualiza a posição
+				// Atualiza a posiÃ§Ã£o
 				if (fant[i].destino->tele)
 					fant[i].tele = !fant[i].tele;
 				fant[i].atual = fant[i].destino;
@@ -93,7 +93,7 @@ void moveFantasmas(Fantasma *fant, Mapa *map, Pacman *pac) {
 				fant[i].direcao = melhorCaminho(fant[i], map, pac);
 			}
 		} else {
-			// Pára
+			// PÃ¡ra
 			fant[i].velocidade = 0;
 			fant[i].direcao = melhorCaminho(fant[i], map, pac);
 		}
@@ -175,14 +175,14 @@ double velocidadeFantasma(Fantasma fant, Pacman *pac) {
 
 // Calcula o alvo do fantasma
 Tile *defineAlvo(Fantasma fant, Mapa *map, Pacman *pac, Fantasma *blinky) {
-	// Sair da prisão
+	// Sair da prisÃ£o
 	if (fant.capturado == PAC_CAPTURA_PRISAO) {
 		return &map->tiles[8][7];
 	// Fugir
 	} else if (fant.capturado == PAC_CAPTURA_AZUL) {
 		return &map->tiles[rand() % PAC_MAPA_ALTURA]
 						  [rand() % PAC_MAPA_LARGURA];
-	// Voltar à prisão
+	// Voltar Ã  prisÃ£o
 	} else if (fant.capturado == PAC_CAPTURA_CAPTURADO) {
 		return fant.inicio;
 	// Espalhar
@@ -223,7 +223,7 @@ Tile *defineAlvo(Fantasma fant, Mapa *map, Pacman *pac, Fantasma *blinky) {
 	}
 }
 
-// Verifica se é permitido passar sobre este tile
+// Verifica se Ã© permitido passar sobre este tile
 int fantasmaPodeAndarSobre(Fantasma fant, Tile *tile) {
 	return tile != 0
 		   && tile->tipo != PAC_TILE_PAREDE
@@ -243,17 +243,17 @@ int fantasmaPodeMudarDirecao(Fantasma fant, Mapa *map) {
 		   && !destino->tele;
 }
 
-// Indica a direção que o fantasma deve seguir
+// Indica a direÃ§Ã£o que o fantasma deve seguir
 int melhorCaminho(Fantasma fant, Mapa *map, Pacman *pac) {
 	int i;
 	int podeMudar[4];
 	double distancia[4];
-	int menorDistancia = PAC_MAPA_LARGURA + PAC_MAPA_ALTURA; // Número maior que o possível
+	int menorDistancia = PAC_MAPA_LARGURA + PAC_MAPA_ALTURA; // NÃºmero maior que o possÃ­vel
 	int melhorDirecao = 4;
 	int direcaoOposta = (fant.direcao + 2) % 4;
 	Tile *destino;
 	
-	// Verifica as direções possíveis e a distância de cada uma do alvo
+	// Verifica as direÃ§Ãµes possÃ­veis e a distÃ¢ncia de cada uma do alvo
 	for (i = 0; i < 4; i++) {
 		fant.direcao = i;
 		destino = proximoTile(map, fant.atual, fant.direcao, fant.tele);
@@ -264,7 +264,7 @@ int melhorCaminho(Fantasma fant, Mapa *map, Pacman *pac) {
 		distancia[i] = distanciaEntre(destino, fant.alvo);
 	}
 	
-	// Encontra a que tem menor distância do alvo
+	// Encontra a que tem menor distÃ¢ncia do alvo
 	for (i = 0; i < 4; i++) {
 		if (podeMudar[i] && distancia[i] < menorDistancia) {
 			melhorDirecao = i;
@@ -272,7 +272,7 @@ int melhorCaminho(Fantasma fant, Mapa *map, Pacman *pac) {
 		}
 	}
 	
-	// Se foi encontrada uma direção, segue-a; se não, dá a volta
+	// Se foi encontrada uma direÃ§Ã£o, segue-a; se nÃ£o, dÃ¡ a volta
 	if (melhorDirecao < 4)
 		return melhorDirecao;
 	else

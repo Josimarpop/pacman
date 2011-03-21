@@ -1,4 +1,4 @@
-// Instancia o mapa
+ï»¿// Instancia o mapa
 Mapa *criaMapa(int tipos[][PAC_MAPA_LARGURA], int bolinhas[][PAC_MAPA_LARGURA], Pacman *pac, Fantasma *fant) {
 	Mapa *map;
 	Tile *teletransporte = NULL;
@@ -8,13 +8,13 @@ Mapa *criaMapa(int tipos[][PAC_MAPA_LARGURA], int bolinhas[][PAC_MAPA_LARGURA], 
 	map = (Mapa *) malloc(sizeof(Mapa));
 	if (!map) return 0;
 	
-	// Aloca memória para os tiles do mapa
+	// Aloca memÃ³ria para os tiles do mapa
 	map->tiles = (Tile **) malloc(PAC_MAPA_ALTURA * sizeof(Tile *));
 	for (k = 0; k < PAC_MAPA_ALTURA; k++) {
 		map->tiles[k] = (Tile *) malloc(PAC_MAPA_LARGURA * sizeof(Tile));
 	}
 	
-	// Preenche as informações dos tiles
+	// Preenche as informaÃ§Ãµes dos tiles
 	for (j = 0; j < PAC_MAPA_ALTURA; j++) {
 		for (i = 0; i < PAC_MAPA_LARGURA; i++) {
 			map->tiles[j][i].tipo = tipos[j][i];
@@ -37,7 +37,7 @@ Mapa *criaMapa(int tipos[][PAC_MAPA_LARGURA], int bolinhas[][PAC_MAPA_LARGURA], 
 		}
 	}
 	
-	// Cria a lista de exibição dos tiles
+	// Cria a lista de exibiÃ§Ã£o dos tiles
 	map->lista = glGenLists(1);
 	glNewList(map->lista, GL_COMPILE);
 	glTranslated(0.5, -0.5, 0);
@@ -159,7 +159,7 @@ void reiniciarMapa(Mapa *map, int bolinhas[][PAC_MAPA_LARGURA]) {
 	}
 }
 
-// Retorna um ponteiro para o próximo tile
+// Retorna um ponteiro para o prÃ³ximo tile
 Tile *proximoTile(Mapa *map, Tile *tile, int direcao, int tele) {
 	// Verifica se o tile pertence ao mapa
 	if (tile != 0
@@ -169,7 +169,7 @@ Tile *proximoTile(Mapa *map, Tile *tile, int direcao, int tele) {
 		&& tile->pos[Y] < PAC_MAPA_ALTURA) {
 		// Se o tile possui um teletransporte
 		if (tile->tele && tele) return tile->tele;
-		// Procura o próximo
+		// Procura o prÃ³ximo
 		switch (direcao) {
 			case PAC_DIRECAO_CIMA:
 				if (tile->pos[Y] == 0) return 0;
@@ -188,7 +188,7 @@ Tile *proximoTile(Mapa *map, Tile *tile, int direcao, int tele) {
 	return 0;
 }
 
-// Retorna o n-ésimo tile seguinte
+// Retorna o n-Ã©simo tile seguinte
 Tile *proximoTileEm(int passos, Mapa *map, Tile *tile, int direcao) {
 	Tile *atual = tile, *proximo = NULL;
 	int i = 1;
@@ -203,7 +203,7 @@ Tile *proximoTileEm(int passos, Mapa *map, Tile *tile, int direcao) {
 	return atual;
 }
 
-// Verifica se o tile faz parte da prisão
+// Verifica se o tile faz parte da prisÃ£o
 int ePrisao(Tile *tile) {
 	return tile != 0
 		   && (tile->tipo == PAC_TILE_BLINKY
@@ -212,7 +212,7 @@ int ePrisao(Tile *tile) {
 			   || tile->tipo == PAC_TILE_CLYDE);
 }
 
-// Calcula a distância entre 2 tiles
+// Calcula a distÃ¢ncia entre 2 tiles
 double distanciaEntre(Tile *a, Tile *b) {
 	int deltaX = a->pos[X] - b->pos[X];
 	int deltaY = a->pos[Y] - b->pos[Y];
